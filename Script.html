@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <style>
+      * {
+        font-family: "Lucida Sans";
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .heading-panel {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .input-panel {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      input {
+        font-size: 2em;
+      }
+
+      .button-panel {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .prompt-panel {
+        height: 200px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-family: monospace;
+      }
+
+      /* Additional styles for button appearance */
+      .button-panel button {
+        margin: 0 5px;
+        padding: 10px 20px;
+        background-color: #ddd;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      /* Styles for hover effect on buttons */
+      .button-panel button:hover {
+        background-color: #ccc;
+      }
+
+      /* Styles for active effect on buttons */
+      .button-panel button:active {
+        background-color: #bbb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading-panel">
+      <h1>Prompt Generator</h1>
+    </div>
+    <div>
+      <div class="input-panel">
+        <input class="input" type="text" placeholder="Enter Title Here" />
+      </div>
+      <div class="button-panel">
+        <button class="basic">Basic</button>
+        <button class="casual">Casual</button>
+        <button class="advanced">Advanced</button>
+      </div>
+      <hr />
+      <div class="prompt-panel"></div>
+      <div class="button-panel">
+        <button class="copy-button">Copy to Clipboard</button>
+      </div>
+    </div>
+
+    <script>
+      const copyButton = document.querySelector(".copy-button");
+
+      let promptPanel = document.body.querySelector(".prompt-panel");
+      let inputField = document.body.querySelector(".input");
+      let buttonPanel = document.body.querySelector(".button-panel");
+      var title = "";
+      inputField.addEventListener("input", function (event) {
+        // Update the title variable with the input value
+        title = event.target.value;
+      });
+
+      buttonPanel.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+
+        switch (clickedElement.className) {
+          case "basic":
+            console.log("Basic button clicked!");
+            // console.log(title);
+            promptPanel.innerText = `Write an engaging youtube video script for the following - ${title}.
+			Use storytelling to bring it together in an engaging way. 
+			Start with a question instead of a standard intro, creating a hook and building out context before jumping into the main content. 
+			End the script sharply.`;
+            // Write your code for the "basic" button here
+            break;
+          case "casual":
+            console.log("Casual button clicked!");
+            promptPanel.innerText = `Create an captivating YouTube video script titled ${title} that effectively utilizes storytelling to engage the audience.
+			Begin the script with a thought-provoking question instead of a typical introduction, crafting a hook that captures the viewers' attention and establishes the context before diving into the main content.
+			Finally, conclude the script with a concise and impactful ending.`;
+            // Write your code for the "casual" button here
+            break;
+          case "advanced":
+            console.log("Advanced button clicked!");
+            promptPanel.innerText = `Generates a cinematic style voiceover script with better vocabulary and good sentencing that attracts audience and retains viewers till the end of the video for the following - ${title}.
+				Use storytelling to bring it together in an engaging way.
+				Start with a question instead of a standard intro, creating a hook and building out context before jumping into the main content.
+				End the script sharply.`;
+            // Write your code for the "advanced" button here
+            break;
+          default:
+            break;
+        }
+      });
+
+      copyButton.addEventListener("click", function () {
+        const textToCopy = promptPanel.innerText;
+
+        const tempElement = document.createElement("textarea");
+        tempElement.value = textToCopy;
+        document.body.appendChild(tempElement);
+
+        tempElement.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempElement);
+
+        copyButton.innerText = "Copied";
+      });
+    </script>
+  </body>
+</html>
